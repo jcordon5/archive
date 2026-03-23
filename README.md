@@ -34,13 +34,13 @@ The system uses an Obsidian-compatible vault located at `~/.claude-knowledge/`:
 
 ## ⚙️ Automatic Configuration
 
-To have Claude use Archive automatically in all tasks, add these lines to your `~/.claude/CLAUDE.md`:
+To have Claude use Archive automatically in all tasks, add these lines to your `CLAUDE.md`:
 
 ```markdown
-## Skills
-- Before starting, check whether any existing skill is relevant to the task.
-- During the task, use relevant skills whenever they improve quality, speed, or consistency.
-- After finishing, check whether any existing skill is useful for wrap-up steps, validation, delivery, or follow-up actions.
+
+On every non-trivial task, first determine whether any available skill is relevant and use it when applicable. If the task requires retrieving prior context, preferences, reusable solutions, writing conventions, or previously discovered steps, consult the archive skill before re-solving anything.
+
+After completing the work, evaluate whether any newly learned information should be stored in archive. If the solution is confirmed to work, tests pass, and the issue is resolved, prepare a git commit only when working inside a git repository and following the archive conventions.
 ```
 
 ## 🛠️ Installation

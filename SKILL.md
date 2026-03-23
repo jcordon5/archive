@@ -1,6 +1,15 @@
 ---
 name: archive
-description: Long-term memory system that persists knowledge across conversations using an Obsidian-compatible vault. Consult at the START of any non-trivial task to recall project context, user preferences, and past discoveries. Save at the END of tasks when new knowledge was gained. Use when: starting work on a known project directory, dealing with auth/credentials/config files, making stylistic choices (code style, writing tone, commit format), user corrects your output, user says "as always" / "like before" / "going forward" / "remember this" / "save this" / "don't make me repeat". Do NOT use for trivial one-line questions or purely informational requests.
+description: >-
+  Long-term memory system that persists knowledge across conversations using an
+  Obsidian-compatible vault. Consult at the START of any non-trivial task to
+  recall project context, user preferences, and past discoveries. Save at the
+  END of tasks when new knowledge was gained. Use when: starting work on a known
+  project directory, dealing with auth/credentials/config files, making
+  stylistic choices (code style, writing tone, commit format), user corrects
+  your output, user says "as always" / "like before" / "going forward" /
+  "remember this" / "save this" / "don't make me repeat". Do NOT use for
+  trivial one-line questions or purely informational requests.
 ---
 
 # Archive
@@ -36,9 +45,9 @@ Consult the vault at the START of a task if ANY apply:
 1. Resolve `$VAULT` with the bash command above.
 2. Read `$VAULT/_index.md` — this is your dispatch map. It lists what files exist and summarizes their contents.
 3. From `_index.md`, identify which files are relevant to the current context:
-   - Working in a known project? → Load `$VAULT/projects/<ProjectName>/context.md`
+   - Working in a known project? → Load `$VAULT/projects/{ProjectName}/context.md`
    - Stylistic task? → Load the relevant `$VAULT/preferences/` file
-   - Domain-specific work (Python, Docker, git…)? → Load `$VAULT/domains/<technology>.md`
+   - Domain-specific work (Python, Docker, git…)? → Load `$VAULT/domains/{technology}.md`
 4. Load ONLY the relevant 1–2 files. Do not load everything.
 5. If `_index.md` does not exist → First Time Use (see below).
 
@@ -84,10 +93,10 @@ $VAULT/
 │   ├── code-style.md            ← Per-language and general code formatting preferences
 │   └── git-conventions.md       ← Commit format, branch naming, PR habits
 ├── projects/
-│   └── <ProjectName>/
+│   └── {ProjectName}/
 │       └── context.md           ← Auth, endpoints, stack, patterns, env vars location
 └── domains/
-    └── <technology>.md          ← Technology-specific knowledge not tied to one project
+    └── {technology}.md          ← Technology-specific knowledge not tied to one project
 ```
 
 ### Routing rules
@@ -96,8 +105,8 @@ $VAULT/
 |-----------------------------------|-------------|
 | User preference or habit, not project-specific | `preferences/` relevant file |
 | Employer/team convention across all projects | `preferences/git-conventions.md` (or writing/code) |
-| True only for ONE project (auth, endpoints, stack) | `projects/<ProjectName>/context.md` |
-| True for a technology regardless of project | `domains/<technology>.md` |
+| True only for ONE project (auth, endpoints, stack) | `projects/{ProjectName}/context.md` |
+| True for a technology regardless of project | `domains/{technology}.md` |
 
 ### Detecting the current project
 
@@ -108,10 +117,10 @@ Check `pwd` and match against paths stored in `_index.md`. If the CWD contains a
 Every entry appended to a knowledge file must use this exact format:
 
 ```markdown
-### <Prefix: short descriptive title>
-**Context:** <When does this apply? Be specific about the trigger situation.>
-**Discovery:** <The actual knowledge — specific file paths, values, commands, patterns. Not vague.>
-**Source:** <One of: User correction | User stated preference | Multi-attempt solve | Discovered during task | User instruction (apply always)>
+### {Prefix: short descriptive title}
+**Context:** {When does this apply? Be specific about the trigger situation.}
+**Discovery:** {The actual knowledge — specific file paths, values, commands, patterns. Not vague.}
+**Source:** {One of: User correction | User stated preference | Multi-attempt solve | Discovered during task | User instruction (apply always)}
 **Date:** YYYY-MM-DD
 
 ---
@@ -145,16 +154,16 @@ Last updated: YYYY-MM-DD
 - `preferences/git-conventions.md` — [one-line summary]
 
 ## Projects
-- `projects/<Name>/context.md` — CWD: <path pattern> | [key facts: auth method, stack, endpoint]
-- `projects/<Name>/context.md` — CWD: <path pattern> | [key facts]
+- `projects/{Name}/context.md` — CWD: {path pattern} | [key facts: auth method, stack, endpoint]
+- `projects/{Name}/context.md` — CWD: {path pattern} | [key facts]
 
 ## Domains
-- `domains/<tech>.md` — [one-line summary]
+- `domains/[tech].md` — [one-line summary]
 
 ## Quick Facts
-<!-- One-liner facts too small to warrant their own entry but worth knowing -->
-- <fact>
-- <fact>
+One-liner facts too small to warrant their own entry but worth knowing.
+- fact
+- fact
 ```
 
 The `## Quick Facts` section is for micro-knowledge that doesn't justify a full entry but helps Claude behave correctly.
@@ -185,7 +194,7 @@ If vault knowledge conflicts with current reality (e.g., an endpoint returns 404
 
 1. Trust what you observe now over what's stored.
 2. If the user explicitly corrects something mid-conversation, that overrides the vault — update immediately.
-3. Add `**Supersedes:** <old fact>` to the updated entry so history is clear.
+3. Add `**Supersedes:** {old fact}` to the updated entry so history is clear.
 4. Never silently hold two contradictory beliefs.
 
 ## FORGETTING (user asks to remove knowledge)
