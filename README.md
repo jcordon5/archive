@@ -40,17 +40,17 @@ The key insight from Karpathy: **ingest compiles knowledge once, permanently.** 
 ## Installation
 
 ```bash
-# 1. Place the skill
-cp -r archive/ ~/.claude/skills/
+# 1. Install the skill
+npx skills add jcordon5/archive
 
-# 2. Initialize the vault
-bash ~/.claude/skills/archive/scripts/setup-vault.sh
+# 2. Initialize the vault (only once)
+bash "$(npx skills list | grep archive | awk '{print $NF}' | perl -pe 's/\e\[[0-9;]*m//g' | sed "s|^~|$HOME|")/scripts/setup-vault.sh"
 
 # 3. Open in Obsidian (optional but recommended)
 # Obsidian → Open folder as vault → ~/.claude-knowledge
 ```
 
-Add to `~/.claude/CLAUDE.md` for automatic activation:
+Add to `~/.claude/CLAUDE.md` or `~/.codex/AGENTS.md`for automatic activation:
 
 ```markdown
 On every non-trivial task, first determine whether any available skill is relevant
