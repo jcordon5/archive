@@ -42,13 +42,25 @@ The key insight from Karpathy: **ingest compiles knowledge once, permanently.** 
 ```bash
 # 1. Install the skill
 npx skills add jcordon5/archive
-
-# 2. Initialize the vault (only once)
-bash "$(npx skills list | grep archive | awk '{print $NF}' | perl -pe 's/\e\[[0-9;]*m//g' | sed "s|^~|$HOME|")/scripts/setup-vault.sh"
-
-# 3. Open in Obsidian (optional but recommended)
-# Obsidian → Open folder as vault → ~/.claude-knowledge
 ```
+
+### Initialize the vault (only once)
+
+**macOS / Linux:**
+
+```bash
+bash "$(npx skills list | grep archive | awk '{print $NF}' | perl -pe 's/\e\[[0-9;]*m//g' | sed "s|^~|$HOME|")/scripts/setup-vault.sh"
+```
+
+**Windows (PowerShell):**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File "$((npx skills list | Select-String 'archive' | ForEach-Object { ($_ -split '\s+')[-1] } | ForEach-Object { $_ -replace '\x1b\[[0-9;]*m' } | ForEach-Object { $_ -replace '^~',$HOME }))\scripts\setup-vault.ps1"
+```
+
+### Open in Obsidian (optional but recommended)
+
+Open Obsidian, select "Open folder as vault", and point it to `~/.claude-knowledge`.
 
 Add to `~/.claude/CLAUDE.md` or `~/.codex/AGENTS.md`for automatic activation:
 
